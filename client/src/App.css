@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Hahmlet', serif;
+  overflow-x: hidden;
+}
+html,
+body {
+  height: 100%;
+  position: relative;
+}
+.logo {
+  margin-left: 20px;
+}
+.nav-link {
+  margin-left: 20px;
+}
+.products {
+  margin: 30px 0px;
+}
+.product {
+  margin: 7px 0px;
+  box-shadow: 0px 0px 7px gainsboro;
+}
+.product-img {
+  width: 100%;
+  object-fit: contain;
+  height: 200px;
+}
+.product-body {
+  padding: 10px 10px;
+}
+.product-title {
+  font-weight: bold;
+  overflow-y: hidden;
+}
+.product-category {
+  overflow-y: hidden;
+}
+.product-price {
+  font-weight: bold;
+}
+.product-body a {
+  display: block;
+}
+.product-rating i {
+  color: #fab005;
+}
+.product-count {
+  font-weight: bold;
+}
+.single-product-image img {
+  width: 100%;
+  object-fit: contain;
+}
+.product-categories {
+  display: flex;
+  align-items: center;
+}
+.product-categories select {
+  border: 1px solid #e8eaed;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0 1px 3px -2px #9098a9;
+  cursor: pointer;
+  margin-left: 10px;
+  outline: none;
+}
+.product-categories select option {
+  color: #223254;
+}
+.product-quantity {
+  display: flex;
+  align-items: center;
+}
+.quantity {
+  margin: 0px 20px;
+  font-size: 20px;
+}
+.increment-quantity,
+.decrement-quantity {
+  border: none;
+  outline: none;
+  font-size: 20px;
+  background: transparent;
+}
+.total-price h4 {
+  background: #223254;
+  color: white;
+  padding: 5px 0px;
+  text-align: center;
+  border-radius: 5px;
+}
+.total-price button {
+  display: block;
+  width: 100%;
+  margin: 5px 0px;
+}
+.cart-product-image img {
+  width: 100%;
+  height: 200px;
+  overflow-y: hidden;
+  object-fit: contain;
+}
+.category-title h5 {
+  overflow-y: hidden;
+}
+footer {
+  background-color: #212529;
+  padding: 80px 10px 30px 10px;
+}
+.social-media{
+  display: flex;
+  justify-content: center;
+  margin: 20px 0px;
+}
+.social-media a {
+  text-decoration: none;
+  color: white;
+  padding-right: 20px;
+  font-size: 20px;
+}
+.social-media a i {
+  border: 1px solid white;
+  padding: 5px 8px;
+}
+.social-media a i:hover {
+  background-color: white;
+  color: black;
+}
+.footer ul{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.footer ul li{
+  color: white;
+}
+.footer ul li .category-item {
+  text-decoration: none;
+  color: white;
+}
+.footer ul li .category-item:hover {
+  border-bottom: 1px solid white;
+}
+.copyright p {
+  color: white;
+  text-align: center;
+}
+.feature-products h2{
+  text-align: center;
+  overflow-y: hidden;
+  margin: 20px 0px;
+}
