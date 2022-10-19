@@ -1,13 +1,28 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import CartItem from "./CartItem";
 import { ProductsContext } from "./GlobalState/Context";
 const ShoppingCart = () => {
   let { cart, dispatch } = useContext(ProductsContext);
+  let authenticateUser = async () => {
+    let res = await fetch("/auth", {
+      method: "GET",
+      credentials: "include",
+    });
+    if (res.status === 200) {
+      let response = await res.json();
+      dispatch({ type: "SET_USER", payload: response.user });
+    } else {
+      dispatch({ type: "SET_USER", payload: null });
+    }
+  };
   //calculate the total amount
   let totalAmount = cart.reduce((total, product) => {
     return total + product.price * product.quantity;
   }, 0);
   totalAmount = Math.round(totalAmount);
+  useEffect(()=>{
+    authenticateUser()
+  },[])
   return (
     <>
       <div className="container mt-4">

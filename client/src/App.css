@@ -6,11 +6,6 @@
   font-family: 'Hahmlet', serif;
   overflow-x: hidden;
 }
-html,
-body {
-  height: 100%;
-  position: relative;
-}
 .logo {
   margin-left: 20px;
 }
@@ -138,6 +133,9 @@ footer {
 .footer ul li{
   color: white;
 }
+.footer ul li:hover{
+  overflow-y: hidden;
+}
 .footer ul li .category-item {
   text-decoration: none;
   color: white;
@@ -153,4 +151,52 @@ footer {
   text-align: center;
   overflow-y: hidden;
   margin: 20px 0px;
+}
+.signup-user{
+  display: flex;
+  justify-content: center;
+  padding: 70px 0px;
+}
+.signup-user h2{
+  text-align: center;
+  overflow-y: hidden;
+}
+.signup-btn{
+  display: block;
+  width: 100%;
+  margin: 8px 0px;
+}
+.login-user{
+  display: flex;
+  justify-content: center;
+  padding: 70px 0px;
+}
+.login-user h2{
+  text-align: center;
+  overflow-y: hidden;
+}
+.login-btn{
+  display: block;
+  width: 100%;
+  margin: 8px 0px;
+}
+h3{
+  overflow-y: hidden;
+}
+.error-message{
+  color:  rgb(184, 64, 64);
+  font-weight: bold;
+}
+.user-info{
+  padding: 70px 10px;
+}
+.user-info h3{
+  text-align: center;
+  margin-bottom: 40px;
+}
+.user-info p{
+  box-shadow: 0px 0px 7px gainsboro;
+  padding: 30px 30px;
+  text-align: center;
+  margin: 10px;
 }

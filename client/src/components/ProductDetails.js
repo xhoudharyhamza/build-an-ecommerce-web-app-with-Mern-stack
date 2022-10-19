@@ -5,7 +5,20 @@ import { useParams, Link } from "react-router-dom";
 const ProductDetails = () => {
   let params = useParams();
   const [productDetails, setProductDetails] = useState(null);
-  let {grabProduct}= useContext(ProductsContext)
+  let { user, dispatch, grabProduct } = useContext(ProductsContext);
+  console.log(user)
+  let authenticateUser = async () => {
+    let res = await fetch("/auth", {
+      method: "GET",
+      credentials: "include",
+    });
+    if (res.status === 200) {
+      let response = await res.json();
+      dispatch({ type: "SET_USER", payload: response.user });
+    } else {
+      dispatch({ type: "SET_USER", payload: null });
+    }
+  };
   //fetch all details of single product from database
   let fetchProductDetails = async () => {
     let res = await axios.get(`/products/${params.id}`);
@@ -15,6 +28,7 @@ const ProductDetails = () => {
     }
   };
   useEffect(() => {
+    authenticateUser()
     fetchProductDetails();
   }, []);
   return (
@@ -44,9 +58,21 @@ const ProductDetails = () => {
                     ? "In stock"
                     : "Out of Stock"}
                 </p>
-                <button className="btn btn-info" style={{ marginRight: "5px" }} onClick={()=>{grabProduct(productDetails._id)}}>
-                  Grab Now
-                </button>
+                {user ? (
+                  <>
+                    <button
+                      className="btn btn-info"
+                      style={{ marginRight: "5px" }}
+                      onClick={() => {
+                        grabProduct(productDetails._id);
+                      }}
+                    >
+                      Grab Now
+                    </button>
+                  </>
+                ) : (
+                  <p><b>You Have to Login to Grab the product</b></p>
+                )}
                 <Link className="btn btn-outline-primary" to="/products">
                   All Products
                 </Link>
@@ -55,7 +81,9 @@ const ProductDetails = () => {
           </div>
         </div>
       ) : (
-        <h3 className="text-center" style={{margin:"200px 0px"}}>Loading...</h3>
+        <h3 className="text-center" style={{ margin: "200px 0px" }}>
+          Loading...
+        </h3>
       )}
     </>
   );

@@ -4,6 +4,18 @@ import Product from "./Product";
 import { ProductsContext } from "./GlobalState/Context";
 const Home = () => {
   let { featureProducts, dispatch } = useContext(ProductsContext);
+  let authenticateUser = async () => {
+    let res = await fetch("/auth", {
+      method: "GET",
+      credentials: "include",
+    });
+    if (res.status === 200) {
+      let response = await res.json();
+      dispatch({ type: "SET_USER", payload: response.user });
+    } else {
+      dispatch({ type: "SET_USER", payload: null });
+    }
+  };
   //fetch all products and feature products
   let fetchFeatureProducts = async () => {
     let res = await axios.get("/products/feature");
@@ -14,6 +26,7 @@ const Home = () => {
   };
   useEffect(() => {
     fetchFeatureProducts();
+    authenticateUser();
   }, []);
   return (
     <div className="container">

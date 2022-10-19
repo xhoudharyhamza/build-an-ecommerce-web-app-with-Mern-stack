@@ -5,6 +5,18 @@ import Product from "./Product";
 import ProductCategories from "./ProductCategories";
 const Products = () => {
   let { products, dispatch } = useContext(ProductsContext);
+  let authenticateUser = async () => {
+    let res = await fetch("/auth", {
+      method: "GET",
+      credentials: "include",
+    });
+    if (res.status === 200) {
+      let response = await res.json();
+      dispatch({ type: "SET_USER", payload: response.user });
+    } else {
+      dispatch({ type: "SET_USER", payload: null });
+    }
+  };
   //fetch all products from the database
   let fetchProducts = async () => {
     try {
@@ -19,6 +31,7 @@ const Products = () => {
     }
   };
   useEffect(() => {
+    authenticateUser()
     fetchProducts();
   }, []);
   return (

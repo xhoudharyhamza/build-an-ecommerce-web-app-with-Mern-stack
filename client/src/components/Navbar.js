@@ -1,24 +1,23 @@
-import React, { useContext, useEffect } from "react";
-import axios from "axios";
+import React, { useLayoutEffect, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { ProductsContext } from "./GlobalState/Context";
 const Navbar = () => {
-  let { cart, categories, dispatch } = useContext(ProductsContext);
-  let fetchProductsCategories = async () => {
-    try {
-      let res = await axios.get("/products/categories");
-      let categories = res.data.categories;
-      dispatch({
-        type: "SET_CATEGORIES",
-        payload: categories,
-      });
-    } catch (error) {
-      console.log(error);
+  let { cart, user, dispatch } = useContext(ProductsContext);
+  let authenticateUser = async () => {
+    let res = await fetch("/auth", {
+      method: "GET",
+      credentials: "include",
+    });
+    if (res.status === 200) {
+      let response = await res.json();
+      dispatch({ type: "SET_USER", payload: response.user });
+    } else {
+      dispatch({ type: "SET_USER", payload: null });
     }
   };
-  useEffect(() => {
-    fetchProductsCategories();
-  }, []);
+  useLayoutEffect(() => {
+    authenticateUser()
+  }, [])
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <NavLink className="navbar-brand logo" to="/">
@@ -64,25 +63,67 @@ const Navbar = () => {
               Products
             </NavLink>
           </li>
-          {categories.map((category, index) => {
-            return (
-              <>
-                <li className="nav-item" key={index}>
-                  <NavLink
-                    className="nav-link"
-                    to={`/category/${category.title}`}
-                    style={({ isActive }) => ({
-                      borderBottom: isActive ? "1px solid white" : "",
-                      paddingBottom: isActive ? "2px" : "",
-                      display: isActive ? "inline-block" : "",
-                    })}
-                  >
-                    {category.title}
-                  </NavLink>
-                </li>
-              </>
-            );
-          })}
+
+          {!user ? (
+            <>
+              <li className="nav-item">
+                <NavLink
+                  className="nav-link"
+                  to="/accounts/signup"
+                  style={({ isActive }) => ({
+                    borderBottom: isActive ? "1px solid white" : "",
+                    paddingBottom: isActive ? "2px" : "",
+                    display: isActive ? "inline-block" : "",
+                  })}
+                >
+                  Signup
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  className="nav-link"
+                  to="/accounts/login"
+                  style={({ isActive }) => ({
+                    borderBottom: isActive ? "1px solid white" : "",
+                    paddingBottom: isActive ? "2px" : "",
+                    display: isActive ? "inline-block" : "",
+                  })}
+                >
+                  Login
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="nav-item">
+                <NavLink
+                  className="nav-link"
+                  to="/user/about"
+                  style={({ isActive }) => ({
+                    borderBottom: isActive ? "1px solid white" : "",
+                    paddingBottom: isActive ? "2px" : "",
+                    display: isActive ? "inline-block" : "",
+                  })}
+                >
+                  {user.email}
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  className="nav-link"
+                  to="/accounts/logout"
+                  style={({ isActive }) => ({
+                    borderBottom: isActive ? "1px solid white" : "",
+                    paddingBottom: isActive ? "2px" : "",
+                    display: isActive ? "inline-block" : "",
+                  })}
+                >
+                  Logout
+                </NavLink>
+              </li>
+            </>
+          )}
+
           <li className="nav-item">
             <NavLink
               className="nav-link"

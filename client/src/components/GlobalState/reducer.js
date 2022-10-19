@@ -42,11 +42,15 @@ let reducer = (state, action) => {
         ...state,
         featureProducts: action.payload,
       };
+    case "SET_USER":
+      return {
+        ...state,
+        user: action.payload,
+      };
     default:
       return {
         ...state,
       };
-      break;
   }
 };
 export default reducer;

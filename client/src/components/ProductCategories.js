@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext} from "react";
 import { ProductsContext } from "./GlobalState/Context";
 const ProductCategories = () => {
-  let { categories, dispatch, filterProducts } = useContext(ProductsContext);
+  let { categories, filterProducts } = useContext(ProductsContext);
   // fetch products according user filter the product
   let handleChange = async (e) => {
     let filterValue = e.target.value;

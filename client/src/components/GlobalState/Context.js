@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useEffect } from "react";
 import reducer from "./reducer";
 import axios from "axios";
 //initial state for this app
@@ -7,11 +7,28 @@ let initialState = {
   categories: [],
   cart: [],
   featureProducts: [],
+  user:null
 };
 //create a context
 let ProductsContext = createContext();
 const Context = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  //fetch products categories
+  let fetchProductsCategories = async () => {
+    try {
+      let res = await axios.get("/products/categories");
+      let categories = res.data.categories;
+      dispatch({
+        type: "SET_CATEGORIES",
+        payload: categories,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(()=>{
+    fetchProductsCategories()
+  },[])
   // add product into the cart
   let grabProduct = async (id) => {
     let res = await axios.get(`/products/${id}`);
